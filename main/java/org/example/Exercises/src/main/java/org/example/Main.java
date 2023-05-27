@@ -1,25 +1,26 @@
 package org.example;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class Main {
-
+    public static void main(String[] args) {
+        Main main = new Main();
+        System.out.println(main.findUsingQueue("C:\\Users\\kbolo\\IdeaProjects\\Exercises", "txt.txt"));
+    }
     public boolean findUsingRecursion(String dir, String fileName) {
         File file = new File(dir);
+        if (file.isFile()) {
+            return file.getName().equals(fileName);
+        }
         File[] files = file.listFiles();
-        try {
-            for (File file1 : files) {
-                if (file1.isFile() && file1.getName().equals(fileName)) {
-                    return true;
-                } else if (!file1.isFile()){
-                    findUsingRecursion(file1.getAbsolutePath(), fileName);
-                }
+        for (File file1 : files) {
+            if (findUsingRecursion(file1.getAbsolutePath(), fileName)) {
+                return true;
             }
-        } catch (NullPointerException e) {
-            e.fillInStackTrace();
         }
         return false;
     }
